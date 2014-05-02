@@ -2,6 +2,7 @@
 namespace Radical\Database\Model\CodeGenerator;
 
 use Radical\Database\Model\TableReferenceInstance;
+use Radical\Database\SQL\Parse\Types\Internal\IPHPDoctype;
 
 class ModelGeneratorProcessor {
     protected $table;
@@ -19,7 +20,13 @@ class ModelGeneratorProcessor {
         }
         $ret = '';
         foreach($orm->mappings as $field=>$field_objective){
-            $type = 'int|string';
+            $vd = $orm->validation->request_data($field);
+            if($vd instanceof IPHPDoctype){
+                $type = $vd->getPhpdocType();
+            }else{
+                $type = 'int|string';
+            }
+
             if(isset($orm->dynamicTyping[$field_objective])){
                 $type .= '|'. $orm->dynamicTyping[$field_objective]['var'];
             }
@@ -36,7 +43,15 @@ class ModelGeneratorProcessor {
                 continue;
             }
             $ref_done[$name] = true;
-            $ret .= $this->getset->generate_getter_related($name, $ref['from_table']->getClass(), 'int[]|string[]')."\r\n";
+
+            $vd = $orm->validation->request_data($ref['from_field']);
+            if($vd instanceof IPHPDoctype){
+                $type = $vd->getPhpdocType().'[]';
+            }else{
+                $type = 'int[]|string[]';
+            }
+
+            $ret .= $this->getset->generate_getter_related($name, $ref['from_table']->getClass(), $type)."\r\n";
         }
         return $ret;
     }
