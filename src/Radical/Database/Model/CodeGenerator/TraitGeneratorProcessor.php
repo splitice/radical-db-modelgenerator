@@ -27,7 +27,6 @@ class TraitGeneratorProcessor extends ModelGeneratorProcessor {
         $ret.= " * @method static ".$this->table->getName()." fromSQL(\$data) Return an instance of ".$this->table->getName()." given the \$data\r\n";
         $ret.= " * @method static ".$this->table->getName()." create(\$data) Create an instance of ".$this->table->getName()." given the \$data\r\n";
         $ret.= " * @method static TableSet|".$this->table->getName()."[] getAll() Return a set of ".$this->table->getName()."\r\n";
-        $ret.= " * @method static TableSet|".$this->table->getName()."[] getAll(\$with) Return a set of ".$this->table->getName()."\r\n";
         $ret.= " * @method ".$this->table->getName()." refreshTableData() Returns a new instance of ".$this->table->getName()." updated from the database\r\n";
         $ret.= " * @method ".$this->table->getName()." new_empty() Returns an empty instance of ".$this->table->getName().".\r\n";
         $ret.= " */\r\n";
