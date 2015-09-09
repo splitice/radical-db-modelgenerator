@@ -31,7 +31,10 @@ class TraitGeneratorProcessor extends ModelGeneratorProcessor {
         $ret.= " * @method ".$this->table->getName()." refreshTableData() Returns a new instance of ".$this->table->getName()." updated from the database\r\n";
         $ret.= " */\r\n";
         $ret.= "trait ".$this->getTraitName()." {\r\n";
-        $ret.= "\tabstract function __call(\$k,\$a); \r\n";
+        $ret.= "\tabstract protected function call_get_member(\$k,\$a); \r\n";
+        $ret.= "\tabstract protected function call_get_related(\$k); \r\n";
+        $ret.= "\tabstract protected function call_set_value(\$k,\$a); \r\n";
+        $ret.= "\tabstract function _getId(); \r\n";
         $ret.= "\t".rtrim(str_replace("\r\n","\r\n\t",parent::getCode()))."\r\n";
         $ret.= "}\r\n";
         return $ret;

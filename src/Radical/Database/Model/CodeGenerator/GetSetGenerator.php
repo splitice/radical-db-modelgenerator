@@ -20,8 +20,12 @@ class GetSetGenerator {
         $ret.= '*/'."\r\n";
 
         //GETTER
-        $ret.='function get'.ucfirst($name_objective).'() {'."\r\n";
-        $ret.="\t".'return $this->__call(__FUNCTION__, func_get_args());'."\r\n";
+        $ret.='function get'.ucfirst($name_objective).'($arg = null) {'."\r\n";
+        if($name_objective == 'id'){
+            $ret .= "\treturn \$this->_getId();\r\n";
+        }else {
+            $ret .= "\t" . 'return $this->call_get_member("' . addslashes($name_objective) . '", [$arg]);' . "\r\n";
+        }
         $ret.='}'."\r\n";
 
         return $ret;
@@ -37,7 +41,7 @@ class GetSetGenerator {
 
         //GETTER
         $ret.='function set'.ucfirst($name_objective).'($value) {'."\r\n";
-        $ret.="\t".'return $this->__call(__FUNCTION__, func_get_args());'."\r\n";
+        $ret.="\t".'return $this->call_set_value("'.addslashes($name_objective).'", $value);'."\r\n";
         $ret.='}'."\r\n";
 
         return $ret;
@@ -54,7 +58,7 @@ class GetSetGenerator {
 
         //GETTER
         $ret.='function get'.ucfirst($name_objective).'s() {'."\r\n";
-        $ret.="\t".'return $this->__call(__FUNCTION__, func_get_args());'."\r\n";
+        $ret.="\t".'return $this->call_get_related("'.addslashes($name_objective).'");'."\r\n";
         $ret.='}'."\r\n";
 
         return $ret;
