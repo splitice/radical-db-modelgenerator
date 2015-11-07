@@ -15,7 +15,7 @@ class GetSetGenerator {
         $ret = '/**'."\r\n";
         $ret.= '* Get the value of '.$name_field."\r\n";
         $ret.= '*'."\r\n";
-        //$ret.= '* @param $type return type (optional)'."\r\n";
+        $ret.= '* @param string|null $arg return type (optional)'."\r\n";
         $ret.= '* @return '.$type.' the value of '.$name_field."\r\n";
         $ret.= '*/'."\r\n";
 
@@ -52,7 +52,7 @@ class GetSetGenerator {
         $ret = '/**'."\r\n";
         $ret.= '* Get related instances of '.$name_objective."\r\n";
         $ret.= '*'."\r\n";
-        //$ret.= '* @param $type return type (optional)'."\r\n";
+        $ret.= '* @param string|null $arg return type (optional)'."\r\n";
         $ret.= '* @return \Radical\Database\Model\Table\TableSet|'.$type.'[]|'.$id_type.' related instances of '.$name_objective."\r\n";
         $ret.= '*/'."\r\n";
 
