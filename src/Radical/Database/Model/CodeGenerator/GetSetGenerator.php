@@ -55,12 +55,13 @@ class GetSetGenerator {
         $ret = '/**'."\r\n";
         $ret.= '* Get related instances of '.$name_objective."\r\n";
         $ret.= '*'."\r\n";
+        $ret.= '* @param string|null $arg return type (optional)' . "\r\n";
         $ret.= '* @return \Radical\Database\Model\Table\TableSet|'.$type.'[]|'.$id_type.' related instances of '.$name_objective."\r\n";
         $ret.= '*/'."\r\n";
 
         //GETTER
-        $ret.='function get'.ucfirst($name_objective).'s() {'."\r\n";
-        $ret.="\t".'return $this->call_get_related("'.addslashes($name_objective).'");'."\r\n";
+        $ret.='function get'.ucfirst($name_objective).'s($arg = null) {'."\r\n";
+        $ret.="\t".'return $this->call_get_related("'.addslashes($name_objective).'", $arg);'."\r\n";
         $ret.='}'."\r\n";
 
         return $ret;
